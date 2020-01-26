@@ -16,3 +16,12 @@ use Illuminate\Http\Request;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::group(['namespace' => 'Api'], function () {
+    Route::group(['namespace' => 'Attribute', 'prefix' => 'attribute'], function () {
+        Route::get('/', 'AttributeController')->middleware('throttle:240,1');
+    });
+    Route::group(['namespace' => 'Search', 'prefix' => 'search'], function () {
+        Route::get('/', 'SearchController')->middleware('throttle:240,1');
+    });
+});
